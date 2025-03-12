@@ -2,7 +2,14 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+const loginRouter = require('./login/route');
+const { authenticateToken } = require('./middleware');
+
 app.use(express.json());
+
+
+app.use('/api/login', loginRouter);
+
 
 let products = [];
 let nextId = 1;
@@ -22,15 +29,16 @@ const validateProductFields = (product) => {
     return null;
 };
 
-// Root route
+// Root route (public)
 app.get('/', (req, res) => {
     res.status(200).json({ message: 'Welcome to the Product Catalog API' });
 });
 
-// Get all products
+
 app.get('/products', (req, res) => {
     res.status(200).json(products);
 });
+
 
 app.get('/products/:id', (req, res) => {
     const id = parseInt(req.params.id);
@@ -46,7 +54,8 @@ app.get('/products/:id', (req, res) => {
     res.status(200).json(product);
 });
 
-app.post('/products', (req, res) => {
+
+app.post('/products', authenticateToken, (req, res) => {
     const newProduct = req.body;
     
     const validationError = validateProductFields(newProduct);
@@ -61,7 +70,8 @@ app.post('/products', (req, res) => {
     res.status(201).json(newProduct);
 });
 
-app.put('/products/:id', (req, res) => {
+
+app.put('/products/:id', authenticateToken, (req, res) => {
     const id = parseInt(req.params.id);
     if (isNaN(id)) {
         return res.status(400).json({ error: 'Invalid ID' });
@@ -84,7 +94,7 @@ app.put('/products/:id', (req, res) => {
     res.status(200).json(updatedProduct);
 });
 
-app.delete('/products/:id', (req, res) => {
+app.delete('/products/:id', authenticateToken, (req, res) => {
     const id = parseInt(req.params.id);
     if (isNaN(id)) {
         return res.status(400).json({ error: 'Invalid ID' });
@@ -99,7 +109,6 @@ app.delete('/products/:id', (req, res) => {
     res.status(204).send();
 });
 
-// Catch-all for unmatched routes
 app.use((req, res) => {
     res.status(404).json({ error: 'Route not found' });
 });
