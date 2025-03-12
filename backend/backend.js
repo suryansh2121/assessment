@@ -10,9 +10,9 @@ app.use(express.json());
 
 app.use('/api/login', loginRouter);
 
-
 let products = [];
 let nextId = 1;
+
 
 const validateProductFields = (product) => {
     const requiredFields = ['name', 'description', 'price', 'imageUrl'];
@@ -29,16 +29,14 @@ const validateProductFields = (product) => {
     return null;
 };
 
-// Root route (public)
+
 app.get('/', (req, res) => {
     res.status(200).json({ message: 'Welcome to the Product Catalog API' });
 });
 
-
 app.get('/products', (req, res) => {
     res.status(200).json(products);
 });
-
 
 app.get('/products/:id', (req, res) => {
     const id = parseInt(req.params.id);
@@ -69,7 +67,6 @@ app.post('/products', authenticateToken, (req, res) => {
     
     res.status(201).json(newProduct);
 });
-
 
 app.put('/products/:id', authenticateToken, (req, res) => {
     const id = parseInt(req.params.id);
@@ -108,6 +105,7 @@ app.delete('/products/:id', authenticateToken, (req, res) => {
     products.splice(productIndex, 1);
     res.status(204).send();
 });
+
 
 app.use((req, res) => {
     res.status(404).json({ error: 'Route not found' });
