@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Task-1</title>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+
+        input {
+          
+            border: none;
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+
+        const { useState } = React;
+
+        function App() {
+            const [data, setData] = useState([
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+                { col_1: "", col_2: "", col_3: "", col_4: "", col_5: "", col_6: "" },
+
+            ]);
+
+            const handleChange = (e, rowIndex, field) => {
+                const newData = [...data];
+                newData[rowIndex] = { ...newData[rowIndex], [field]: e.target.value };
+                setData(newData);
+            };
+
+            const rowTitles = [
+                "Ongoing call",
+                "Google Search Console Access",
+                "Google Analytics Access",
+                "Website Access",
+                "Technical Audit",
+                "Anchor Text and Semantic Analysis",
+                "Competitor Analysis",
+                "Anchor Text/URL Mapping",
+                "Google Data Studio Report + Local Reposting Suite",
+                "Site Level Optimization",
+                "On Page Optimization",
+                "Content Creation",
+                "Content Publishing",
+                "Premium Press Release",
+                "Authority Niche Placements",
+                "Review Management",
+                "Index Links",
+                "Video Recap",
+            ];
+
+            return (
+                <div>
+                    <h2>User Table</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="7">Month 1</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            {data.map((row, rowIndex) => (
+                                <tr key={rowIndex}>
+                                    <th>{rowTitles[rowIndex]}</th>
+                                    <td>
+                                        <input
+                                            value={row.col_1}
+                                            onChange={(e) => handleChange(e, rowIndex, "col_1")}
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            value={row.col_2}
+                                            onChange={(e) => handleChange(e, rowIndex, "col_2")}
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            value={row.col_3}
+                                            onChange={(e) => handleChange(e, rowIndex, "col_3")}
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            value={row.col_4}
+                                            onChange={(e) => handleChange(e, rowIndex, "col_4")}
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            value={row.col_5}
+                                            onChange={(e) => handleChange(e, rowIndex, "col_5")}
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            value={row.col_6}
+                                            onChange={(e) => handleChange(e, rowIndex, "col_6")}
+                                        />
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                  
+                    <pre>{JSON.stringify(data, null, 2)}</pre>
+                    
+                    <button>                       
+                         Submit   
+                    </button> 
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
+
+
